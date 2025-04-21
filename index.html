@@ -3,17 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Textbox Example</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Unlimited Textbox</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        textarea {
+            width: 80%;
+            height: 300px;
+            font-size: 16px;
+            padding: 10px;
+            resize: vertical;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Enter Something</h1>
-        <input type="text" id="textbox" placeholder="Type here...">
-        <button onclick="showText()">Submit</button>
-        <p id="output"></p>
-    </div>
+    <h2>Unlimited Textbox</h2>
+    <textarea id="unlimitedTextbox"></textarea>
+    <p>Character Count: <span id="charCount">0</span></p>
 
-    <script src="script.js"></script>
+    <script>
+        const textbox = document.getElementById("unlimitedTextbox");
+        const charCountDisplay = document.getElementById("charCount");
+
+        // Update character count
+        textbox.addEventListener("input", () => {
+            charCountDisplay.textContent = textbox.value.length;
+            localStorage.setItem("savedText", textbox.value);
+        });
+
+        // Load saved text from local storage
+        window.addEventListener("load", () => {
+            textbox.value = localStorage.getItem("savedText") || "";
+            charCountDisplay.textContent = textbox.value.length;
+        });
+    </script>
 </body>
 </html>
